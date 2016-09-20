@@ -27,7 +27,15 @@ class Symbol extends Component {
   }
 
   render() {
-    const { symbol, stockAction } = this.props;
+    const { symbol, stockAction, fetchingError } = this.props;
+
+    if (fetchingError) {
+      return (
+        <div className="symbol text-center">
+          <h4 className="text-danger">Symbol Not Found</h4>
+        </div>
+      );
+    }
 
     if (symbol === null) {
       return (

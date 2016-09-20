@@ -26,10 +26,10 @@ export default function reducer(state = initialState, action) {
       return {...state, fetchingSymbol: true, fetchingError: false, stockAction: true};
 
     case types.SYMBOL_FETCHING:
-      return {...state, fetchingSymbol: true, fetchingError: false};
+      return {...state, fetchingSymbol: true};
 
     case types.SYMBOL_FETCHING_ERROR:
-      return {...state, fetchingError: true, fetchingSymbol: false};
+      return {...state, fetchingError: true, fetchingSymbol: false, symbol: null};
 
     case types.SET_SYMBOL: {
       return saveState({...state, symbol: action.symbol, fetchingSymbol: false, fetchingError: false});

@@ -29,15 +29,26 @@ class StockExchange extends Component {
 
   renderContent() {
     const { actions, dispatch } = this.props;
-    const { symbol, cash, portfolio, stockAction } = this.props.state;
+    const { symbol, cash, portfolio, stockAction, fetchingError } = this.props.state;
 
     return (
       <div className="row">
         <div className="col-md-4">
-          <Symbol actions={actions} dispatch={dispatch} symbol={symbol} stockAction={stockAction} />
+          <Symbol
+            actions={actions}
+            dispatch={dispatch}
+            symbol={symbol}
+            stockAction={stockAction}
+            fetchingError={fetchingError}
+          />
         </div>
         <div className="col-md-8">
-          <Portfolio actions={actions} dispatch={dispatch} portfolio={portfolio} cash={cash} />
+          <Portfolio
+            actions={actions}
+            dispatch={dispatch}
+            portfolio={portfolio}
+            cash={cash}
+          />
         </div>
       </div>
     );
