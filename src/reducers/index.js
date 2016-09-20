@@ -3,6 +3,7 @@ import types from '../constants';
 const initialState = {
   fetchingSymbol: false,
   fetchingError: false,
+  stockAction: false,
   cash: 100000,
   symbol: null,
   portfolio: [],
@@ -21,6 +22,9 @@ export default function reducer(state = initialState, action) {
     case types.SET_STATE:
       return Object.assign({}, state, action.state, {fetchingSymbol: false});
 
+    case types.STOCK_ACTION:
+      return {...state, fetchingSymbol: true, fetchingError: false, stockAction: true};
+
     case types.SYMBOL_FETCHING:
       return {...state, fetchingSymbol: true, fetchingError: false};
 
@@ -31,11 +35,12 @@ export default function reducer(state = initialState, action) {
       return saveState({...state, symbol: action.symbol, fetchingSymbol: false, fetchingError: false});
     }
     case types.BUY_STOCK: {
-      if (action.quantity < 1 ||
+      if (isNaN(action.quantity) ||
+        action.quantity < 1 ||
         typeof action.symbol.askPrice === 'undefined' ||
         typeof action.symbol.bidPrice === 'undefined'
       ) {
-        return saveState({...state, fetchingSymbol: false});
+        return saveState({...state, fetchingSymbol: false, stockAction: false});
       }
 
       let portfolio;
@@ -59,17 +64,18 @@ export default function reducer(state = initialState, action) {
       const cash = state.cash - (quantity * action.symbol.askPrice);
 
       if (cash < 0) {
-        return saveState({...state, fetchingSymbol: false});
+        return saveState({...state, fetchingSymbol: false, stockAction: false});
       }
 
-      return saveState({...state, portfolio, fetchingSymbol: false, cash});
+      return saveState({...state, portfolio, fetchingSymbol: false, stockAction: false, cash});
     }
     case types.SELL_STOCK: {
-      if (action.quantity < 1 ||
+      if (isNaN(action.quantity) ||
+        action.quantity < 1 ||
         typeof action.symbol.askPrice === 'undefined' ||
         typeof action.symbol.bidPrice === 'undefined'
       ) {
-        return saveState({...state, fetchingSymbol: false});
+        return saveState({...state, fetchingSymbol: false, stockAction: false});
       }
       let portfolio;
       const existing = state.portfolio.filter(stock => stock.symbol === action.symbol.symbol);
@@ -91,9 +97,9 @@ export default function reducer(state = initialState, action) {
         }
         const cash = state.cash + (quantity * action.symbol.bidPrice);
 
-        return saveState({...state, portfolio, fetchingSymbol: false, cash});
+        return saveState({...state, portfolio, fetchingSymbol: false, stockAction: false, cash});
       }
-      return saveState({...state, fetchingSymbol: false});
+      return saveState({...state, fetchingSymbol: false, stockAction: false});
     }
     default:
       return state;

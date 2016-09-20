@@ -81,7 +81,7 @@ function stockAction(type, symbol, quantity) {
       });
 
     dispatch({
-      type: types.SYMBOL_FETCHING
+      type: types.STOCK_ACTION
     });
   };
 }

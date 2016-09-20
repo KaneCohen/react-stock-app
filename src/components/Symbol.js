@@ -8,20 +8,26 @@ class Symbol extends Component {
 
   buyStock() {
     const { actions, symbol } = this.props;
-    const quantity = parseInt(this.quantityInput.value, 10);
-    this.quantityInput.value = null;
-    actions.buyStock(symbol.symbol, quantity);
+    let quantity = this.quantityInput.value;
+    if (! isNaN(quantity)) {
+      quantity = Math.round(this.quantityInput.value);
+      actions.buyStock(symbol.symbol, quantity);
+      this.quantityInput.value = null;
+    }
   }
 
   sellStock() {
     const { actions, symbol } = this.props;
-    const quantity = parseInt(this.quantityInput.value, 10);
-    this.quantityInput.value = null;
-    actions.sellStock(symbol.symbol, quantity);
+    let quantity = this.quantityInput.value;
+    if (! isNaN(quantity)) {
+      quantity = Math.round(this.quantityInput.value);
+      actions.sellStock(symbol.symbol, quantity);
+      this.quantityInput.value = null;
+    }
   }
 
   render() {
-    const { symbol } = this.props;
+    const { symbol, stockAction } = this.props;
 
     if (symbol === null) {
       return (
@@ -50,8 +56,8 @@ class Symbol extends Component {
         </table>
         <div className="symbol-action-form form-inline">
           <input className="form-control" placeholder="Quantity" ref={(ref) => this.quantityInput = ref} />
-          <button className="btn btn-primary" onClick={this.buyStock.bind(this)}>Buy</button>
-          <button className="btn btn-danger" onClick={this.sellStock.bind(this)}>Sell</button>
+          <button className="btn btn-primary" onClick={this.buyStock.bind(this)} disabled={stockAction ? 'disabled' : ''}>Buy</button>
+          <button className="btn btn-danger" onClick={this.sellStock.bind(this)} disabled={stockAction ? 'disabled' : ''}>Sell</button>
         </div>
       </div>
     );
@@ -62,6 +68,7 @@ class Symbol extends Component {
 Symbol.propTypes = {
   actions: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
+  stockAction: PropTypes.bool.isRequired,
   symbol: PropTypes.object
 };
 
