@@ -1,0 +1,16 @@
+.panel {
+  margin-top: $navbar-height;
+}
+
+.panel-heading {
+  .heading {
+    display: inline-block;
+    padding: $padding-base-vertical 0;
+  }
+  .symbol-form {
+    margin: 0;
+    .form-group {
+      margin-right: $padding-base-horizontal;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.symbol-action-form.form-inline {
+  display: flex;
+  justify-content: space-between;
+
+  .form-control {
+    width: 100%;
+  }
+
+  & > *:not(:last-child) {
+    margin: 0 $padding-small-horizontal 0 0;
+  }
+}
