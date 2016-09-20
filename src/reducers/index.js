@@ -31,7 +31,10 @@ export default function reducer(state = initialState, action) {
       return saveState({...state, symbol: action.symbol, fetchingSymbol: false, fetchingError: false});
     }
     case types.BUY_STOCK: {
-      if (action.quantity < 1) {
+      if (action.quantity < 1 ||
+        typeof action.symbol.askPrice === 'undefined' ||
+        typeof action.symbol.bidPrice === 'undefined'
+      ) {
         return saveState({...state, fetchingSymbol: false});
       }
 
@@ -62,7 +65,10 @@ export default function reducer(state = initialState, action) {
       return saveState({...state, portfolio, fetchingSymbol: false, cash});
     }
     case types.SELL_STOCK: {
-      if (action.quantity < 1) {
+      if (action.quantity < 1 ||
+        typeof action.symbol.askPrice === 'undefined' ||
+        typeof action.symbol.bidPrice === 'undefined'
+      ) {
         return saveState({...state, fetchingSymbol: false});
       }
       let portfolio;

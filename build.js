@@ -5,10 +5,10 @@ var sass = require('node-sass');
 var webpack = require('webpack');
 
 var config = {
-  debug: true,
+  debug: (process.env.NODE_ENV === 'production' ? false : true),
   entry: './src/index.js',
   target: 'web',
-  devtool: 'inline-source-map',
+  devtool: (process.env.NODE_ENV === 'production' ? null : 'inline-source-map'),
   node: {
     fs: 'empty'
   },
@@ -29,7 +29,12 @@ var config = {
     ]
   },
   plugins: [
-    //new webpack.optimize.UglifyJsPlugin({minimize: true})
+    new webpack.optimize.UglifyJsPlugin({minimize: true}),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      }
+    })
   ]
 };
 

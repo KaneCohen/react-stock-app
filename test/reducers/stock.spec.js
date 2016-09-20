@@ -158,8 +158,9 @@ describe('Stock Reducer', () => {
     store.dispatch(action);
   });
 
-  it('should not sell missing stock from portfolio', (done) => {
-    store = configureStore();
+  it('should not sell missing stock from portfolio', function(done) {
+    this.timeout(5000);
+    const store = configureStore();
     let action = actions.setState({portfolio: [{
       symbol: 'AAPL',
       quantity: 100,
@@ -190,7 +191,7 @@ describe('Stock Reducer', () => {
 
 
   it('should remove sold stock from portfolio', (done) => {
-    store = configureStore();
+    const store = configureStore();
     let action = actions.setState({portfolio: [{
       symbol: 'AAPL',
       quantity: 100,

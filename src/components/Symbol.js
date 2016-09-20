@@ -43,8 +43,8 @@ class Symbol extends Component {
           </thead>
           <tbody>
             <tr>
-              <th>{symbol.bidPrice}</th>
-              <th>{symbol.askPrice}</th>
+              <th>{symbol.bidPrice ? symbol.bidPrice : '---'}</th>
+              <th>{symbol.askPrice ? symbol.askPrice : '---'}</th>
             </tr>
           </tbody>
         </table>

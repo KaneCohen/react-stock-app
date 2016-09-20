@@ -21,7 +21,6 @@ class StockExchange extends Component {
     const { actions } = this.props;
     setInterval(() => {
       const { symbol, fetchingSymbol } = this.props.state;
-      console.log(this.props.state);
       if (symbol && ! fetchingSymbol) {
         actions.findSymbol(symbol.symbol);
       }
@@ -34,10 +33,10 @@ class StockExchange extends Component {
 
     return (
       <div className="row">
-        <div className="col-sm-4">
+        <div className="col-md-4">
           <Symbol actions={actions} dispatch={dispatch} symbol={symbol} />
         </div>
-        <div className="col-sm-8">
+        <div className="col-md-8">
           <Portfolio actions={actions} dispatch={dispatch} portfolio={portfolio} cash={cash} />
         </div>
       </div>

@@ -45,7 +45,7 @@
   "scripts": {
     "lint": "eslint resources/assets/js",
     "lint:watch": "watch 'npm run lint' src",
-    "build": "node build.js",
+    "build": "NODE_ENV=production node build.js",
     "test": "node_modules/mocha/bin/mocha test/setup.js test/**/*.spec.js --reporter progress"
   }
 }

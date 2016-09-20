@@ -1,6 +1,11 @@
 import types from '../constants';
 import fetch from 'isomorphic-fetch';
 
+let fetchUrl = '/fetch?symbol=';
+if (process.env.NODE_ENV === 'test') {
+  fetchUrl = 'http://data.benzinga.com/rest/richquoteDelayed?symbols=';
+}
+
 export function setState(state) {
   return {
     type: types.SET_STATE,
@@ -8,16 +13,9 @@ export function setState(state) {
   };
 }
 
-export function setTimer(timer) {
-  return {
-    type: types.SET_TIMER,
-    timer
-  };
-}
-
 export function findSymbol(input) {
   return (dispatch) => {
-    fetch(`/fetch?symbol=${input}`)
+    fetch(fetchUrl + input)
       .then(response => {
         if (response.status >= 400) {
           dispatch({
@@ -55,7 +53,7 @@ export function setSymbol(symbol) {
 
 function stockAction(type, symbol, quantity) {
   return (dispatch) => {
-    fetch(`/fetch?symbol=${symbol}`)
+    fetch(fetchUrl + symbol)
       .then(response => {
         if (response.status >= 400) {
           dispatch({
