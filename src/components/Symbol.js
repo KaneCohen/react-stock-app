@@ -33,7 +33,7 @@ class Symbol extends Component {
 
     return (
       <div className="symbol">
-        <h5>{symbol.name} ({symbol.symbol})</h5>
+        <h4>{symbol.name} ({symbol.symbol})</h4>
         <table className="table table-bordered">
           <thead>
             <tr>

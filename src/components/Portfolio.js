@@ -43,10 +43,10 @@ class Portfolio extends Component {
       <div className="portfolio">
         <div className="row">
           <div className="col-xs-6">
-            <h5>Current Portfolio</h5>
+            <h4>Current Portfolio</h4>
           </div>
           <div className="col-xs-6 text-right">
-            <h5>Cash: ${toMoney(cash)}</h5>
+            <h4>Cash: ${toMoney(cash)}</h4>
           </div>
         </div>
         <table className="table table-bordered table-striped">
